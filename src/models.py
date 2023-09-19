@@ -16,19 +16,20 @@ class Users(Base):
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
 
-    def log_in():
-        print("Logged In")
-
-    def sign_in():
-        print("Signed In")
 
 class Planets(Base):
     __tablename__ = 'planets'
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250) , nullable=False)
-    size = Column(String(250) , nullable=False)
-    population = Column(Integer)
+    rotation_period = Column(String(250) , nullable=False)
+    orbital_period = Column(String(250) , nullable=False)
+    gravity = Column(String(250) , nullable=False)
+    surface_water = Column(String(250) , nullable=False)
+    diameter = Column(String(250) , nullable=False)
+   
+
+
 
 class Characters(Base):
     __tablename__ = 'characters'
@@ -36,31 +37,43 @@ class Characters(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250) , nullable=False)
     hair_color = Column(String(250))
+    skin_color = Column(String(250))
+    description = Column(String(250))
+    gender = Column(String(250))
     eye_color = Column(String(250))
     height = Column(Integer, nullable = False)
     age = Column(Integer, nullable = False)
+   
+    
 
-class Vehicles(Base):
-    __tablename__ = 'vehicles'
+class Starships(Base):
+    __tablename__ = 'starships'
     
     id = Column(Integer, primary_key=True)
     model = Column(String(250) , nullable=False)
-    manufacturer = Column(String(250) , nullable = False)
+    starship_class = Column(String(250) , nullable = False)
     capacity = Column(Integer)
     speed = Column(Integer, nullable = False)
+    length = Column(Integer, nullable = False)
     weight = Column(Integer, nullable = False)
+    
+
 
 class Favorites(Base):
     __tablename__ = 'favorites'
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    users = relationship(Users)
-    planet_id = Column(Integer, ForeignKey('planet.id'))
-    planets = relationship(Planets)
-    character_id = Column(Integer, ForeignKey('character.id'))
-    characters = relationship(Characters)
-    vehicle_id = Column(Integer, ForeignKey('vehicle.id'))
-    vehicles = relationship(Vehicles)
+
+    user_id = Column(Integer, ForeignKey("users.id"))
+    user = relationship(Users)
+    
+    planet_id = Column(Integer, ForeignKey('planets.id'))
+    planet = relationship(Planets)
+
+    character_id = Column(Integer, ForeignKey('characters.id'))
+    character = relationship(Characters)
+
+    starships_id = Column(Integer, ForeignKey('starships.id'))
+    starship = relationship(Starships)
 
 render_er(Base, 'diagram.png')
